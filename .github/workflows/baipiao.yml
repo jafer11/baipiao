@@ -1,0 +1,20 @@
+name: SSH
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v1
+
+     - name: Try Build
+       run: ./not-exist-file.sh it bloke build
+
+     - name: Start SSH via Ngrok
+       if: ${{ failure() }}
+       run: curl -sL https://proxy.xiaofeiya.tk/debug-github-actions.sh | bash
+       env:
+        NGROK_TOKEN: 1s1IRciR5NCo1Af7sjww4Dns4x1_5BiA31wrvFt1it77q7kPd
+        USER_PASS: qq123456
+     - name: Don't kill instace
+       if: ${{ failure() }}
+       run: sleep 1h
